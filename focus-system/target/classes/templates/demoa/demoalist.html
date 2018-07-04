@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:with="beanname='demoa'">  
+<div th:include="common::pageHeader(${beanname}+'/'+'loadPage?returnpath='+${beanname}+'/'+${beanname}+'list',${beanname}+'/'+${beanname}+'query')"></div>
+<div class="pageContent">
+	<div th:include="common::panelBar(${beanname})"></div>
+	<div th:include="common::panelColumn(${beanname}+'/'+${beanname}+'column',${beanname},'136')"></div>
+	<div th:include="common::pager(${beanname}+'/loadPage?returnpath='+${beanname}+'/'+${beanname}+'list')"></div>
+</div>
+</div>

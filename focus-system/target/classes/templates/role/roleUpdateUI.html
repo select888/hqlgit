@@ -1,0 +1,29 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<div class="pageContent">
+	<form method="post" action="role/update?refreshpath=rolelist" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+		<input type="hidden" name="roleId" th:value="${entity.roleId}">
+		<div class="pageFormContent sortDrag" layoutH="56">
+			<p>
+				<label>角色名：</label>
+				<input name="roleName" type="text" maxlength="150" th:value="${entity.roleName}"/>
+			</p>
+			<p>
+				<label>角色描述：</label>
+				<input name="description" type="text" maxlength="150" th:value="${entity.description}"/>
+			</p>
+			<div class="divider"></div>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

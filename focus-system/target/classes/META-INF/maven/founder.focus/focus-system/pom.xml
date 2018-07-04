@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>founder.focus</groupId>
+		<artifactId>focusparent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>focus-system</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>founder.focus</groupId>
+			<artifactId>focus-core</artifactId>    
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>founder.focus</groupId>
+			<artifactId>focus-statichtml</artifactId>    
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>founder.focus</groupId>
+			<artifactId>focus-codecreater</artifactId>    
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

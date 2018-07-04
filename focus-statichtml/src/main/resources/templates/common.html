@@ -1,0 +1,373 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- listlook字段 -->
+<div th:fragment="panelListLookColumn(column,beanname,layoutH)"> 
+<div th:layoutH="${layoutH}" id="w_list_print">
+	<table class="table" width="100%" targetType="navTab" asc="asc" desc="desc"  nowrapTD="false">
+		<thead>
+			<tr>
+			    <div th:include="${column}::thead"></div>
+			</tr>
+		</thead>
+		<tbody>
+			   <div th:include="${column}::listlooktbody(${beanname})"></div>
+		</tbody>
+	</table>
+	</div>
+</div>
+<!-- 字段 -->
+<div th:fragment="panelColumn(column,beanname,layoutH)"> 
+<div th:layoutH="${layoutH}" id="w_list_print">
+	<table class="table" width="100%" targetType="navTab" asc="asc" desc="desc"  nowrapTD="false">
+		<thead>
+			<tr>
+			    <div th:include="${column}::thead"></div>
+			</tr>
+		</thead>
+		<tbody>
+			   <div th:include="${column}::tbody(${beanname})"></div>
+		</tbody>
+	</table>
+	</div>
+</div>
+<!-- 增删改查 -->
+<div th:fragment="panelBar(beanname)"> 
+<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" th:href="@{${beanname}+'/'+'insertUI?returnpath='+${beanname}+'/'+${beanname}+'InsertUI'}" target="navTab"><span>添加</span></a></li>
+			<li><a title="确实要删除这些记录吗?" th:target="selectedTodo" th:rel="entityids" th:postType="string" th:href="@{${beanname}+'/del/many?refreshpath='+${beanname}+'list'}" class="delete"><span>删除</span></a></li>
+			<li><a class="edit" id="update" th:href="@{${beanname}+'/updateUI/{sid_entity}?returnpath='+${beanname}+'/'+${beanname}+'UpdateUI'}" target="navTab" warn="请选择一条"><span>修改</span></a></li>
+			<li><a class="edit" id="view" th:href="@{${beanname}+'/view/{sid_entity}?returnpath='+${beanname}+'/'+${beanname}+'view'}" target="navTab" warn="请选择一条"><span>查看</span></a></li>
+			<li class="line">line</li>
+		</ul>
+	</div>
+</div>
+<div th:fragment="panelTreeBar(beanname)"> 
+<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" th:href="@{${beanname}+'/'+'insertUI?returnpath='+${beanname}+'/'+${beanname}+'InsertUI'}" target="navTab"><span>添加</span></a></li>
+			<li><a class="edit" th:id="${beanname}+'update'" th:href="@{${beanname}+'/updateUI/{sid_entity}?returnpath='+${beanname}+'/'+${beanname}+'UpdateUI'}" target="navTab" warn="请选择一条"><span>修改</span></a></li>
+			<li><a class="edit" th:id="${beanname}+'view'" th:href="@{${beanname}+'/view/{sid_entity}?returnpath='+${beanname}+'/'+${beanname}+'view'}" target="navTab" warn="请选择一条"><span>查看</span></a></li>
+			<li class="line">line</li>
+		</ul>
+	</div>
+</div>
+<!-- 加载tree -->
+<div th:fragment="pageTreeContent(beanname,treename)"> 
+<link rel="stylesheet" th:href="@{css/zTreeStyle/demo.css}" type="text/css">
+<link rel="stylesheet" th:href="@{css/zTreeStyle/zTreeStyle.css}" type="text/css">
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.core-3.5.js}"></script>
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.excheck-3.5.js}"></script>
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.exedit-3.5.js}"></script>
+	<div class="content_wrap">
+				<div class="zTreeDemoBackground left">
+					<ul th:id="${beanname}+'treeDemo'" class="ztree"></ul>
+				</div>
+			</div>
+	<input type="checkbox" th:id="${beanname}+'remove'" class="checkbox first" /><span>显示删除按钮</span>
+	<input type="checkbox" th:id="${beanname}+'rename'" class="checkbox " /><span>显示编辑按钮</span><br/>
+<script th:inline="javascript" type="text/javascript">
+		function canInner(treeId, nodes, targetNode) {
+			return true;
+		}
+		var setting = {
+			view: {
+				selectedMulti: false
+			},
+			edit: {
+				enable: true,
+				drag : {
+					inner: canInner
+
+				}
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				beforeDrop: beforeDrop,
+				onDrop: zTreeOnDrop,
+				beforeRemove: beforeRemove,
+				onRemove: onRemove,
+				beforeRename: beforeRename,
+				onRename: onRename,
+				onClick: zTreeOnClick
+			}
+		}
+		var zNodes=$.parseJSON([[${jsonstring}]]);
+		function beforeDrag(treeId, treeNodes) {
+			for (var i=0,l=treeNodes.length; i<l; i++) {
+				if (treeNodes[i].drag === false) {
+					return false;
+				}
+			}
+			return true;
+		}
+		function beforeRemove(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj([[${beanname}]]+"treeDemo");
+			zTree.selectNode(treeNode);
+			return confirm("确认删除 菜单 -- " + treeNode.name + " 吗？");
+		}
+		function zTreeOnClick(event, treeId, treeNode) {
+			if(treeNode.id!=0){
+				$("#"+[[${beanname}]]+"update").attr("href",[[${beanname}]]+"/updateUI/"+treeNode.id+"?returnpath="+[[${beanname}]]+"/"+[[${beanname}]]+"UpdateUI");
+				$("#"+[[${beanname}]]+"view").attr("href",[[${beanname}]]+"/view/"+treeNode.id+"?returnpath="+[[${beanname}]]+"/"+[[${beanname}]]+"view");
+			}
+		};
+		function onRemove(e, treeId, treeNode) {
+			$().loadUrl([[${beanname}]]+"/del/"+treeNode.id
+					+"?refreshpath="+[[${beanname}]]+"/"+[[${beanname}]]+"list", null,
+				function(data) {
+					//var str=eval(data);
+				})
+			//showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+		}
+		function beforeRename(treeId, treeNode, newName, isCancel) {
+			if (newName.length == 0) {
+				alert("节点名称不能为空.");
+				var zTree = $.fn.zTree.getZTreeObj([[${beanname}]]+"treeDemo");
+				setTimeout(function(){zTree.editName(treeNode)}, 10);
+				return false;
+			}
+			return true;
+		}
+		function onRename(e, treeId, treeNode, isCancel) {
+			$().loadUrl([[${beanname}]]+"/updateTreename/"+treeNode.id
+					+"?namevalue="+encodeURI(encodeURI(treeNode.name))
+					+"&treename="+[[${treename}]]+"&refreshpath="
+					+[[${beanname}]]+"list", null,
+				function(data) {
+					//var str=eval(data);
+				})
+		}
+		function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+			/*if((treeNodes[0].pId==0&&targetNode.pId!=0)||
+			(treeNodes[0].pId!=0&&targetNode.pId==0)||targetNode.level==0){
+				return true;
+			}*/
+			if(targetNode.level==0){
+				return false;
+			}
+			return true;
+		}
+		function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+			var zTree = $.fn.zTree.getZTreeObj([[${beanname}]]+"treeDemo");
+			 var nodes = zTree.getNodes();
+			 var act=zTree.transformToArray(nodes);
+					var str='';
+					for(var i=0;i<act.length;i++)
+					{
+						if(act[i].id!=0){
+							str+=act[i].id+"@"+act[i].pId+",";
+						}
+					}
+				$().loadUrl([[${beanname}]]+"/updateTreeOrder?jsonstring="+str
+						+"&refreshpath="+[[${beanname}]]+"list", null,
+				function(data) {
+					//var str=eval(data);
+				})
+			
+		}
+		function setEdit() {
+			var zTree = $.fn.zTree.getZTreeObj([[${beanname}]]+"treeDemo"),
+			remove = $("#"+[[${beanname}]]+"remove").prop("checked"),
+			rename = $("#"+[[${beanname}]]+"rename").prop("checked");
+			zTree.setting.edit.showRemoveBtn = remove;
+			zTree.setting.edit.showRenameBtn = rename;
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#"+[[${beanname}]]+"treeDemo"), setting, zNodes);
+			setEdit();
+			$("#"+[[${beanname}]]+"remove").bind("change", setEdit);
+			$("#"+[[${beanname}]]+"rename").bind("change", setEdit);
+		})
+	</script>
+</div>
+<!-- 加载设置集合树 -->
+<div th:fragment="setTreeContent(beanname,action)"> 
+<link rel="stylesheet" th:href="@{css/zTreeStyle/demo.css}" type="text/css">
+<link rel="stylesheet" th:href="@{css/zTreeStyle/zTreeStyle.css}" type="text/css">
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.core-3.5.js}"></script>
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.excheck-3.5.js}"></script>
+<script type="text/javascript" th:src="@{js/ztree/jquery.ztree.exedit-3.5.js}"></script>
+
+	<form method="post" th:action="@{${action}}" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+		<div class="pageFormContent" layoutH="56">
+			<input type="hidden" name="ids" id="resultBox" th:value="${ids}">
+			<div class="divider"></div>
+			
+			<div class="content_wrap">
+				<div class="zTreeDemoBackground left">
+					可选(按住ctrl键多选拖动)
+					<ul th:id="${beanname}+'treeDemo'" class="ztree"></ul>
+				</div>
+				<div class="right">
+					已选
+					<ul th:id="${beanname}+'treeDemo2'" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+
+<script th:inline="javascript" type="text/javascript">
+		function canInner(treeId, nodes, targetNode) {
+			return !(targetNode && targetNode.level === 1||targetNode && targetNode.level === 0);
+		}
+		var setting = {
+			edit: {
+				enable: true,
+				showRemoveBtn: false,
+				showRenameBtn: false,
+				drag : {
+					inner: canInner
+
+				}
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				beforeDrop: beforeDrop,
+				onDrop: zTreeOnDrop
+			}
+		}
+		var zNodes =$.parseJSON([[${canselectjsonstr}]]);
+		var zNodes2 =$.parseJSON([[${hasselectjsonstr}]]);
+
+		function beforeDrag(treeId, treeNodes) {
+			for (var i=0,l=treeNodes.length; i<l; i++) {
+				if (treeNodes[i].drag === false) {
+					return false;
+				}
+			}
+			return true;
+		}
+		function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+			return targetNode ? targetNode.drop !== false : true;
+		}
+		function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+			var zTree = $.fn.zTree.getZTreeObj([[${beanname}]]+"treeDemo2");
+			 var nodes = zTree.getNodes();
+			 var result="";
+			 for (var i=0,l=nodes.length; i<l; i++) {
+			 		result+=getAllChildIds(nodes[i]);
+			}
+			$("#resultBox").val(result);
+			
+		}
+		function getAllChildIds(nodes){
+			var cresult="";
+			if (nodes.isParent){
+				var childrenNodes = nodes.children;
+	            for (var i = 0; i < childrenNodes.length; i++) {
+	                cresult += getAllChildIds(childrenNodes[i]);
+	            }
+			}else{
+				return nodes.id+",";
+			}
+			return cresult;
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#"+[[${beanname}]]+"treeDemo"), setting, zNodes);
+			$.fn.zTree.init($("#"+[[${beanname}]]+"treeDemo2"), setting, zNodes2);
+			
+		})
+</script>
+
+</div>
+<!-- 查询部分 -->
+<div th:fragment="pageHeader(action,query)"> 
+<div class="pageHeader" th:unless="${query==''}">
+	<form rel="pagerForm" onsubmit="return navTabSearch(this);" th:action="${action}" method="post">
+	<div class="searchBar">
+		<div th:include="${query}::query"></div>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+</div> 
+<div th:fragment="pageListLookHeader(action,query)"> 
+<div class="pageHeader" th:unless="${query==''}">
+	<form rel="pagerForm" onsubmit="return dialogSearch(this);" th:action="${action}" method="post">
+	<div class="searchBar">
+		<div th:include="${query}::query"></div>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+</div>
+<div th:fragment="commonjs">  
+   <script type="text/javascript" th:src="@{js/base.js}"></script>  
+</div> 
+<div th:fragment="pager(action)">
+<form id="pagerForm" method="post" th:action="${action}">
+	<input type="hidden" name="pageNum" th:value="${datas.number+1}" />
+	<input type="hidden" name="numPerPage" th:value="${datas.size}" />
+	<input type="hidden" name="orderField" th:value="${pager.orderField}" />
+	<input type="hidden" name="orderDirection" th:value="${pager.orderDirection}" />
+</form>
+<div class="panelBar" >
+		<div class="pages">
+			<span>显示</span>
+			<select  class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option th:selected="${datas.size==5}" value="5" >5</option>
+				<option th:selected="${datas.size==10}" value="10" >10</option>
+				<option th:selected="${datas.size==20}" value="20" >20</option>
+				<option th:selected="${datas.size==50}" value="50">50</option>
+				<option th:selected="${datas.size==100}" value="100">100</option>
+				<option th:selected="${datas.size==200}" value="200">200</option>
+			</select>
+			<span th:text="|条,共${datas.totalElements}条|"></span>
+		</div>
+		<div class="pagination" targetType="navTab" th:totalCount="${datas.totalElements}" th:numPerPage="${datas.size}" pageNumShown="10" th:currentPage="${datas.number+1}"></div>
+	</div>
+</div>
+<div th:fragment="listlookpager(action)">
+<form id="pagerForm" method="post" th:action="${action}">
+	<input type="hidden" name="pageNum" th:value="${datas.number+1}" />
+	<input type="hidden" name="numPerPage" th:value="${datas.size}" />
+	<input type="hidden" name="orderField" th:value="${pager.orderField}" />
+	<input type="hidden" name="orderDirection" th:value="${pager.orderDirection}" />
+</form>
+<div class="panelBar" >
+		<div class="pages">
+			<span>显示</span>
+			<select  class="combox" name="numPerPage" onchange="dialogPageBreak({numPerPage:this.value})">
+				<option th:selected="${datas.size==5}" value="5" >5</option>
+				<option th:selected="${datas.size==10}" value="10" >10</option>
+				<option th:selected="${datas.size==20}" value="20" >20</option>
+				<option th:selected="${datas.size==50}" value="50">50</option>
+				<option th:selected="${datas.size==100}" value="100">100</option>
+				<option th:selected="${datas.size==200}" value="200">200</option>
+			</select>
+			<span th:text="|条,共${datas.totalElements}条|"></span>
+		</div>
+		<div class="pagination" targetType="dialog" th:totalCount="${datas.totalElements}" th:numPerPage="${datas.size}" pageNumShown="10" th:currentPage="${datas.number+1}"></div>
+	</div>
+</div>

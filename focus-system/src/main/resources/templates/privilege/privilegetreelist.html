@@ -1,0 +1,9 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:with="beanname='privilege'">  
+<div class="pageContent">
+	<div th:include="common::panelTreeBar(${beanname})"></div>
+	<div th:include="common::pageTreeContent(${beanname},'pridesc')"></div>
+</div>
+</div>

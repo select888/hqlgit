@@ -1,0 +1,139 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<script src="dwz/js/dwz.miscDrag.js" type="text/javascript"></script>
+<script src="dwz/js/dwz.regional.zh.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$("dl.miscSortDrag").miscSortDrag();
+	$("div.sortDrag").sortDrag();
+</script>
+<link href="dwz/themes/miscDrag/screen.css" rel="stylesheet"
+	type="text/css" media="all" />
+<div class="page unitBox">
+	<!--<h2 class="contentTitle">炉门 Furnace door</h2>-->
+	<!-- start自定义拖拽示例 -->
+	<div class="pageContent" style="padding: 10px;">
+
+		<dl id="myMiscSortDrag" class="miscSortDrag" drag-rel="dd .sortDrag"
+			data-duplicate="1">
+			<dt>
+				<fieldset>
+					<legend>显示单元(Element)</legend>
+					<div class="itemBox">
+						<div class="dragItem" data-sn="element-11" data-name="室外 PM2.5">
+							室外 PM2.5<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-12" data-name="样板间1 PM2.5">
+							样板间1 PM2.5<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-13" data-name="样板间2 PM2.5">
+							样板间2 PM2.5<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-21" data-name="过滤前水质">
+							过滤前水质<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-22" data-name="过滤后水质">
+							过滤后水质<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-32" data-name="样板间1噪音">
+							样板间1噪音<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-33" data-name="样板间2噪音">
+							样板间2噪音<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+
+						<div class="dragItem" data-sn="element-41" data-name="样板间1温度">
+							样板间1温度<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-42" data-name="样板间1湿度">
+							样板间1湿度<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-51" data-name="样板间1照度">
+							样板间1照度<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+						<div class="dragItem" data-sn="element-61" data-name="样板间1风速">
+							样板间1风速<label class="ctl-label"><input type="checkbox"
+								name="fullSize">撑满</label><span class="close">X</span>
+						</div>
+					</div>
+				</fieldset>
+
+			</dt>
+			<dd>
+				<fieldset>
+					<legend>屏幕布局配置(Screen)</legend>
+					<div class="row" style="padding: 0 10px;">
+						<div class="col-lg-4 col-md-12 col-sm-12">
+							<p class="title">空气质量(Panel)</p>
+							<div class="sortDrag" data-sn="panel-1" data-name="空气质量"
+								data-over-sort="false">
+								<div class="dragItem" data-sn="element-11" data-name="室外 PM2.5">
+									室外 PM2.5<label class="ctl-label"><input type="checkbox"
+										name="fullSize">撑满</label><span class="close">X</span>
+								</div>
+								<div class="dragItem" data-sn="element-12"
+									data-name="样板间1 PM2.5">
+									样板间1 PM2.5<label class="ctl-label"><input
+										type="checkbox" name="fullSize">撑满</label><span class="close">X</span>
+								</div>
+								<div class="dragItem" data-sn="element-13"
+									data-name="样板间2 PM2.5">
+									样板间2 PM2.5<label class="ctl-label"><input
+										type="checkbox" name="fullSize">撑满</label><span class="close">X</span>
+								</div>
+							</div>
+
+							<p class="title">热舒适度(Panel)</p>
+							<div class="sortDrag" data-sn="panel-6" data-name="热舒适度"></div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<p class="title">水质(Panel)</p>
+							<div class="sortDrag" data-sn="panel-2" data-name="水质"
+								data-over-sort="false">
+								<div class="dragItem" data-sn="element-21" data-name="过滤前水质">
+									过滤前水质<label class="ctl-label"><input type="checkbox"
+										name="fullSize">撑满</label><span class="close">X</span>
+								</div>
+								<div class="dragItem" data-sn="element-22" data-name="过滤后水质">
+									过滤后水质<label class="ctl-label"><input type="checkbox"
+										name="fullSize">撑满</label><span class="close">X</span>
+								</div>
+							</div>
+
+							<p class="title">风速(Panel)</p>
+							<div class="sortDrag" data-sn="panel-4" data-name="风速"
+								data-over-sort="false"></div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<p class="title">噪音(Panel)</p>
+							<div class="sortDrag" data-sn="panel-3" data-name="噪音"></div>
+
+							<p class="title">照度(Panel)</p>
+							<div class="sortDrag" data-sn="panel-5" data-name="照度"
+								data-over-sort="false"></div>
+						</div>
+
+					</div>
+				</fieldset>
+			</dd>
+
+		</dl>
+		<button type="button"
+			onclick="alert( JSON.stringify($('#myMiscSortDrag').miscSortDragData()) )">获取数据</button>
+	</div>
+
+</div>
+</html>

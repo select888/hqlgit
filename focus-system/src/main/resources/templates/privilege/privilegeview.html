@@ -1,0 +1,40 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<div class="pageContent">
+	<form method="post" action="privilege/update?refreshpath=privilegelist" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+		<input type="hidden" name="id" th:value="${entity.id}">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>pridesc：</label>
+				<input name="pridesc" readonly="readonly" type="text" maxlength="150" th:value="${entity.pridesc}"/>
+			</p>
+			<p>
+				<label>orderno：</label>
+				<input name="orderno" readonly="readonly" type="text" maxlength="150" th:value="${entity.orderno}"/>
+			</p>
+			<p>
+				<label>type：</label>
+				<input name="type" readonly="readonly" type="text" maxlength="150" th:value="${entity.type}"/>
+			</p>
+			<p>
+				<label>priurl：</label>
+				<input name="priurl" readonly="readonly" type="text" maxlength="150" th:value="${entity.priurl}"/>
+			</p>
+			<p>
+				<label>priname：</label>
+				<input name="priname" readonly="readonly" type="text" maxlength="150" th:value="${entity.priname}"/>
+			</p>
+			<div class="divider"></div>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

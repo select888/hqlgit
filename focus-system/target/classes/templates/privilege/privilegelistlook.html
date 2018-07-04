@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:with="beanname='privilege'">  
+<div th:include="common::pageListLookHeader(${beanname}+'/'+'listlook?returnpath='+${beanname}+'/'+${beanname}+'listlook',${beanname}+'/'+${beanname}+'query')"></div>
+<div class="pageContent">
+	<div th:include="common::panelListLookColumn(${beanname}+'/'+${beanname}+'column',${beanname},'136')"></div>
+	<div th:include="common::listlookpager(${beanname}+'/listlook?returnpath='+${beanname}+'/'+${beanname}+'listlook')"></div>
+</div>
+</div>

@@ -1,0 +1,40 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<div class="pageContent">
+	<form method="post" action="sysmenu/update?refreshpath=sysmenulist" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+		<input type="hidden" name="id" th:value="${entity.id}">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>orderno：</label>
+				<input name="orderno" readonly="readonly" type="text" maxlength="150" th:value="${entity.orderno}"/>
+			</p>
+			<p>
+				<label>menuname：</label>
+				<input name="menuname" readonly="readonly" type="text" maxlength="150" th:value="${entity.menuname}"/>
+			</p>
+			<p>
+				<label>rolename：</label>
+				<input name="rolename" readonly="readonly" type="text" maxlength="150" th:value="${entity.rolename}"/>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>sysmenu：</label>
+               <input name="sysmenu.menuname" type="text" th:value="${entity.sysmenu==null}?'':${entity.sysmenu.menuname}"/>
+			</p>
+			<p>
+				<label>privilege：</label>
+               <input name="privilege.priname" type="text" th:value="${entity.privilege==null}?'':${entity.privilege.priname}"/>
+			</p>
+		</div>
+		
+		<div class="formBar">
+			<ul>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

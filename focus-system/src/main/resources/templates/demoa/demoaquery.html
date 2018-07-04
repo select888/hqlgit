@@ -1,0 +1,13 @@
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:fragment="query"> 
+<!-- 查询条件 -->
+<ul class="searchContent">
+	<li><label>test3：</label> <input type="text" name="test3" th:value="${entity.test3}" /></li>
+	<li><label>id：</label> <input type="text" name="id" th:value="${entity.id}" /></li>
+	<li><label>test1：</label> <input type="text" name="test1" th:value="${entity.test1}" /></li>
+</ul>
+
+</div>

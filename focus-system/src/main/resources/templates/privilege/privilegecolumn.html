@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:fragment="thead">
+	<th width="22"><input type="checkbox" th:group="entityids" class="checkboxCtrl"></th>
+	<th orderField="id" th:class="${pager.orderField eq 'id'}?${pager.orderDirection}" title="排序">编号</th>
+	<th orderField="pridesc" th:class="${pager.orderField eq 'pridesc'}?${pager.orderDirection}">pridesc</th>
+	<th orderField="orderno" th:class="${pager.orderField eq 'orderno'}?${pager.orderDirection}">orderno</th>
+	<th orderField="type" th:class="${pager.orderField eq 'type'}?${pager.orderDirection}">type</th>
+	<th orderField="priurl" th:class="${pager.orderField eq 'priurl'}?${pager.orderDirection}">priurl</th>
+	<th orderField="priname" th:class="${pager.orderField eq 'priname'}?${pager.orderDirection}">priname</th>
+	<th>操作</th>
+</div>
+<div th:fragment="tbody(beanname)">
+<tr th:each="pojo:${datas}" th:target="sid_entity"
+ th:object=${pojo} th:rel="*{id}" >
+ <td><input name="entityids" th:value="*{id}" type="checkbox"></td>
+ <td th:text="*{id}"></td>
+ <td th:text="*{pridesc}"></td>
+ <td th:text="*{orderno}"></td>
+ <td th:text="*{type}"></td>
+ <td th:text="*{priurl}"></td>
+ <td th:text="*{priname}"></td>
+ <td>
+	<a title="删除" target="ajaxTodo" th:href="@{${beanname}+'/del/'+*{id}+'?refreshpath='+${beanname}+'list'}" class="btnDel">删除</a>
+	<a title="编辑"  target="navTab" mask="true" th:href="@{${beanname}+'/updateUI/'+*{id}+'?returnpath='+${beanname}+'/'+${beanname}+'UpdateUI'}" class="btnEdit">编辑</a>
+	<a title="查看"  target="navTab" mask="true" th:href="@{${beanname}+'/view/'+*{id}+'?returnpath='+${beanname}+'/'+${beanname}+'view'}">查看</a>
+ </td>
+</tr>
+</div>
+<div th:fragment="listlooktbody(beanname)">
+<tr th:each="pojo:${datas}" th:target="sid_entity"
+ th:object=${pojo} th:rel="*{id}" >
+ <td><input name="entityids" th:value="*{id}" type="checkbox"></td>
+ <td th:text="*{id}"></td>
+ <td th:text="*{pridesc}"></td>
+ <td th:text="*{orderno}"></td>
+ <td th:text="*{type}"></td>
+ <td th:text="*{priurl}"></td>
+ <td th:text="*{priname}"></td>
+ <td>
+ <a class="btnSelect" th:href="@{'javascript:$.bringBack({id:\''+*{id}+'\',priname:\''+*{priname}+'\'})'}" multLookup="empItems" title="查找带回">选择</a>
+ </td>
+</tr>
+</div>

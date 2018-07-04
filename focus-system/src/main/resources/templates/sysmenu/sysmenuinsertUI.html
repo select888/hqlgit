@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<div class="pageContent">
+	<form method="post" action="sysmenu/insert?refreshpath=sysmenulist" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone);">
+		<div class="pageFormContent" layoutH="56">
+			<p>
+				<label>orderno：</label>
+				<input name="orderno" type="text" maxlength="150" value=""/>
+			</p>
+			<p>
+				<label>menuname：</label>
+				<input name="menuname" type="text" maxlength="150" value=""/>
+			</p>
+			<p>
+				<label>rolename：</label>
+				<input name="rolename" type="text" maxlength="150" value=""/>
+			</p>
+			<div class="divider"></div>
+			<p>
+				<label>sysmenu：</label>
+               <input name="sysmenu.id" type="hidden"/>
+               <input name="sysmenu.menuname" type="text"/>
+               <a class="btnLook" href="sysmenu/listlook.do?returnpath=sysmenu/sysmenulistlook" lookupGroup="sysmenu">查找带回</a>	
+			</p>
+			<p>
+				<label>privilege：</label>
+               <input name="privilege.id" type="hidden"/>
+               <input name="privilege.priname" type="text"/>
+               <a class="btnLook" href="privilege/listlook.do?returnpath=privilege/privilegelistlook" lookupGroup="privilege">查找带回</a>	
+			</p>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

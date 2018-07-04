@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:fragment="thead">
+	<th width="22"><input type="checkbox" th:group="entityids" class="checkboxCtrl"></th>
+	<th orderField="agentId" th:class="${pager.orderField eq 'agentId'}?${pager.orderDirection}" title="排序">编号</th>
+	<th orderField="agentName" th:class="${pager.orderField eq 'agentName'}?${pager.orderDirection}">agentName</th>
+	<th>操作</th>
+</div>
+<div th:fragment="tbody(beanname)">
+<tr th:each="pojo:${datas}" th:target="sid_entity"
+ th:object=${pojo} th:rel="*{agentId}" >
+ <td><input name="entityids" th:value="*{agentId}" type="checkbox"></td>
+ <td th:text="*{agentId}"></td>
+ <td th:text="*{agentName}"></td>
+ <td>
+	<a title="删除" target="ajaxTodo" th:href="@{${beanname}+'/del/'+*{agentId}+'?refreshpath='+${beanname}+'list'}" class="btnDel">删除</a>
+	<a title="编辑"  target="navTab" mask="true" th:href="@{${beanname}+'/updateUI/'+*{agentId}+'?returnpath='+${beanname}+'/'+${beanname}+'UpdateUI'}" class="btnEdit">编辑</a>
+	<a title="查看"  target="navTab" mask="true" th:href="@{${beanname}+'/view/'+*{agentId}+'?returnpath='+${beanname}+'/'+${beanname}+'view'}">查看</a>
+ </td>
+</tr>
+</div>
+<div th:fragment="listlooktbody(beanname)">
+<tr th:each="pojo:${datas}" th:target="sid_entity"
+ th:object=${pojo} th:rel="*{agentId}" >
+ <td><input name="entityids" th:value="*{agentId}" type="checkbox"></td>
+ <td th:text="*{agentId}"></td>
+ <td th:text="*{agentName}"></td>
+ <td>
+ </td>
+</tr>
+</div>

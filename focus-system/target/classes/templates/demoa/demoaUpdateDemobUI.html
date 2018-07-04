@@ -1,0 +1,8 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:with="beanname='demoa'"> 
+<div class="pageContent">
+<div th:include="common::setTreeContent(${beanname},${beanname}+'/updateSet/'+${entityid}+'?refreshpath='+${beanname}+'list&fieldName=demobs')"></div>
+</div>
+</div>

@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<div th:fragment="query"> 
+<!-- 查询条件 -->
+<ul class="searchContent">
+	<li><label>orderno：</label> <input type="text" name="orderno" th:value="${entity.orderno}" /></li>
+	<li><label>menuname：</label> <input type="text" name="menuname" th:value="${entity.menuname}" /></li>
+	<li><label>rolename：</label> <input type="text" name="rolename" th:value="${entity.rolename}" /></li>
+</ul>
+<ul class="searchContent">
+	<li><label>id：</label> <input type="text" name="id" th:value="${entity.id}" /></li>
+</ul>
+
+</div>
